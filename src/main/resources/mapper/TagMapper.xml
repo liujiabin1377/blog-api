@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liujiabin.dao.mapper.TagMapper">
+
+	<!--    private Long id;
+
+                   private String avatar;
+
+                   private String tagName;-->
+
+	<select id="selectTagsByArticleId" resultType="com.liujiabin.dao.pojo.Tag">
+		select id , avatar , tag_name as tagName
+		from ms_tag
+		where id in ( select tag_id from ms_article_tag where article_id = #{articleId} )
+	</select>
+
+
+	<select id="selectHotTagsIds" resultType="java.lang.Long">
+		select tag_id from ms_article_tag group by tag_id order by count(tag_id) desc limit #{limit}
+	</select>
+
+
+</mapper>
+

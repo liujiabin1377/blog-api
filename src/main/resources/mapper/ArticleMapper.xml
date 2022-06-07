@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liujiabin.dao.mapper.ArticleMapper">
+	<resultMap id="articleMap" type="com.liujiabin.dao.pojo.Article">
+		<id column="id" property="id" />
+		<result column="author_id" property="authorId"/>
+		<result column="comment_counts" property="commentCounts"/>
+		<result column="create_date" property="createDate"/>
+		<result column="summary" property="summary"/>
+		<result column="title" property="title"/>
+		<result column="view_counts" property="viewCounts"/>
+		<result column="weight" property="weight"/>
+		<result column="body_id" property="bodyId"/>
+		<result column="category_id" property="categoryId"/>
+	</resultMap>
+
+
+	<!--按年月进行分组和排序-->
+	<select id="listArchivesArticle" resultType="com.liujiabin.dao.dos.Archives">
+		select year(from_unixtime(create_date/1000)) as year , month(from_unixtime(create_date/1000)) as month ,count(*) as count
+		from ms_article group by year , month order by year  desc , month desc
+	</select>
+
+<!--IPage<Article> selectArticle(Page<Article> page, Long categoryId, Long tagId, String year, String month);-->
+	<select id="selectArticle" resultType="com.liujiabin.dao.pojo.Article">
+		select * from ms_article
+		<where>
+			<if test="categoryId != null">
+				and category_id = #{categoryId}
+			</if>
+			<if test="tagId != null">
+				and id in ( select article_id from ms_article_tag where tag_id = #{tagId})
+			</if>
+			<if test="year!=null and year.length>0 and month!=null and month.length>0 ">
+				and ( year(from_unixtime(create_date/1000)) = #{year} and month(from_unixtime(create_date/1000)) = #{month} )
+			</if>
+		</where>
+	</select>
+</mapper>
