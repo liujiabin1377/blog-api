@@ -6,11 +6,10 @@ import lombok.Data;
 
 @Data
 public class Article {
-	/*是否点赞*/
+	/*点赞数*/
 	public static final int Article_TOP = 1;
-	/*是否置顶*/
+	/*评论数*/
 	public static final int Article_Common = 0;
-
 
 	private Long id;
 	/*标题*/
