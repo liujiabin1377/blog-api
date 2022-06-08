@@ -11,7 +11,7 @@ public class Article {
 	/*评论数*/
 	public static final int Article_Common = 0;
 
-	//主键id
+	//主键id，默认雪花算法
 	private Long id;
 	/*标题*/
 	private String title;
