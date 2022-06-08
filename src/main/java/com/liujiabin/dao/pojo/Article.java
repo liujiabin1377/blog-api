@@ -11,6 +11,7 @@ public class Article {
 	/*评论数*/
 	public static final int Article_Common = 0;
 
+	//主键id
 	private Long id;
 	/*标题*/
 	private String title;
@@ -26,7 +27,7 @@ public class Article {
 	private Long bodyId;
 	/*类别id*/
 	private Long categoryId;
-	/*置顶*/
+	/*权重置顶*/
 	private Integer weight ;
 	/*创建时间*/
 	private Long createDate;
