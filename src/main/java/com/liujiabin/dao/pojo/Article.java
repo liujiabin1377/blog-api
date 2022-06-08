@@ -15,7 +15,7 @@ public class Article {
 	private Long id;
 	/*标题*/
 	private String title;
-	/*简介*/
+	/*概要*/
 	private String summary;
 	/*评论数量*/
 	private Integer commentCounts;
